@@ -1,5 +1,5 @@
 package sample;
 
 public interface Observer {
-    void onNext();
+    void onNext(String msg);
 }
