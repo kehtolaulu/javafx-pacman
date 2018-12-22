@@ -1,4 +1,4 @@
-package sample;
+package server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +14,6 @@ public class Connection {
 
     Connection(int id, Socket socket, Server server) throws IOException {
         this.id = id;
-
         this.server = server;
         this.socket = socket;
         writer = new PrintWriter(socket.getOutputStream());

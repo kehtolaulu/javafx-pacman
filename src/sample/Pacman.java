@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Pacman implements Playable, Observer {
     private static final int STEP = 10;
@@ -17,16 +17,14 @@ public class Pacman implements Playable, Observer {
 
     public Pacman() {
         this.dir = 1;
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream("img/1.png");
+        try (FileInputStream fis = new FileInputStream("img/1.png")) {
             Image img = new Image(fis);
             imageView = new ImageView(img);
             imageView.setFitHeight(WIDTH);
             imageView.setFitWidth(HEIGHT);
             imageView.setX(0);
             imageView.setY(0);
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         this.id = 0;
@@ -90,4 +88,6 @@ public class Pacman implements Playable, Observer {
                 break;
         }
     }
+
+    public int getId() { return id; }
 }

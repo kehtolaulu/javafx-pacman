@@ -30,7 +30,6 @@ public class Connector implements Observable, Observer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -45,6 +44,7 @@ public class Connector implements Observable, Observer {
 
     @Override
     public void notifyObservers(String msg) {
+        msg = ":" + msg;
         for (Observer o : observers) {
             o.onNext(msg);
         }
