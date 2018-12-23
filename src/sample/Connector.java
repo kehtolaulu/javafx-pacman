@@ -5,27 +5,34 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Connector implements Observable, Observer {
+public class Connector implements Observable, Observer, Runnable {
     private final PrintWriter writer;
+    private final BufferedReader reader;
     private final Socket socket;
     private final List<Observer> observers;
+
+    private final int id;
 
     public Connector(String host) throws IOException {
         socket = new Socket(host, 4567);
         writer = new PrintWriter(socket.getOutputStream());
-        observers = new LinkedList<>();
+        observers = Collections.synchronizedList(new LinkedList<>());
+        reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+        id = Integer.parseInt(reader.readLine());
     }
 
+    @Override
     public void run() {
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String s = br.readLine();
+            String s = reader.readLine();
             while (s != null) {
                 notifyObservers(s);
-                s = br.readLine();
+                s = reader.readLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -34,7 +41,9 @@ public class Connector implements Observable, Observer {
 
     @Override
     public void addObserver(Observer o) {
-        observers.add(o);
+        synchronized (observers) {
+            observers.add(o);
+        }
     }
 
     @Override
@@ -44,15 +53,21 @@ public class Connector implements Observable, Observer {
 
     @Override
     public void notifyObservers(String msg) {
-        msg = ":" + msg;
-        for (Observer o : observers) {
+        Observer[] observersArray = new Observer[observers.size()];
+        observersArray = observers.toArray(observersArray);
+        for (Observer o : observersArray) {
             o.onNext(msg);
         }
+//            observers.forEach(o -> o.onNext(msg));
     }
 
     @Override
     public void onNext(String msg) {
         writer.println(msg);
         writer.flush();
+    }
+
+    public int getId() {
+        return id;
     }
 }

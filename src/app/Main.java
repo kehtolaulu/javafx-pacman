@@ -21,21 +21,25 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
 
-        Pacman pacman = new Pacman();
+        Connector connector = new Connector("localhost");
+
+        Player pacman = new Pacman(connector.getId());
         root.getChildren().add(pacman.asView());
 
         Keyboard keyboard = new Keyboard(scene);
         keyboard.addObserver(pacman);
         primaryStage.show();
 
-        Connector connector = new Connector("localhost");
-        keyboard.addObserver(connector);
-        connector.addObserver(pacman);
+//        keyboard.addObserver(connector);
+        ProtocolWrapper wrappedKeyboard = new ProtocolWrapper(keyboard, pacman);
+        wrappedKeyboard.addObserver(connector);
+
+        connector.addObserver(new ProtocolUnwrapper(pacman));
 
         ModelMaker modelMaker = new ModelMaker(root, connector);
         connector.addObserver(modelMaker);
 
-        connector.run();
+        new Thread(connector).start();
     }
 
     public static void main(String[] args) {

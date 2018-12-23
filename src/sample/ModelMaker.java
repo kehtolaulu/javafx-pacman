@@ -1,8 +1,7 @@
 package sample;
 
+import javafx.application.Platform;
 import javafx.scene.layout.AnchorPane;
-
-import java.util.Random;
 
 public class ModelMaker implements Observer {
     private AnchorPane anchorPane;
@@ -15,19 +14,38 @@ public class ModelMaker implements Observer {
 
     @Override
     public void onNext(String msg) {
-        if (msg.startsWith("new")) {
+        if (isNew(msg)) {
+            // 1:new:100:10[:pacman]
             String[] args = msg.split(":");
+            Player player;
 
-            Random random = new Random();
+            if (msg.endsWith("pacman")) {
+                player = new Pacman(
+                        Integer.parseInt(args[2]),
+                        Integer.parseInt(args[3])
+                );
+            } else {
+                player = new Dot(
+                        Integer.parseInt(args[2]),
+                        Integer.parseInt(args[3])
+                );
+            }
 
-            Dot player = new Dot(
-                    Integer.parseInt(args[2]),
-                    Integer.parseInt(args[3])
+            player.setId(Integer.parseInt(args[0]));
+            Platform.runLater(() -> anchorPane.getChildren().add(player.asView())
             );
-            player.setId(Integer.parseInt(args[1]));
-
-            this.anchorPane.getChildren().add(player.asView());
-            this.observable.addObserver(player);
+            this.observable.addObserver(new ProtocolUnwrapper(player));
         }
+    }
+
+    private static boolean isNew(String msg) {
+        String[] split = msg.split(":");
+        try {
+            Integer.parseInt(split[0]);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        return split.length > 1 && "new".equals(split[1]);
     }
 }

@@ -6,4 +6,5 @@ public interface Playable {
     void moveLeft();
     void moveRight();
     int getId();
+    void setId(int id);
 }

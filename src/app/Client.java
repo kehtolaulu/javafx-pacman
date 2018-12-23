@@ -5,32 +5,42 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import sample.Keyboard;
-import sample.Pacman;
-import sample.Dot;
+import sample.*;
+
+import java.io.IOException;
 
 public class Client extends Application {
     private final static int SCREEN_WIDTH = 800;
     private final static int SCREEN_HEIGHT = 600;
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException {
         AnchorPane root = new AnchorPane();
         primaryStage.setTitle("Dot");
         Scene scene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT, new Color(0, 0, 0.7, 0.3));
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
 
-        Dot p = new Dot(300, 100);
-        Pacman pacman = new Pacman();
+        Connector connector = new Connector("localhost");
+
+        Player p = new Dot(connector.getId());
+
         root.getChildren().add(p.asView());
-        root.getChildren().add(pacman.asView());
 
         Keyboard keyboard = new Keyboard(scene);
         keyboard.addObserver(p);
         primaryStage.show();
 
+//        keyboard.addObserver(connector);
+        ProtocolWrapper wrappedKeyboard = new ProtocolWrapper(keyboard, p);
+        wrappedKeyboard.addObserver(connector);
 
+        connector.addObserver(new ProtocolUnwrapper(p));
+
+        ModelMaker modelMaker = new ModelMaker(root, connector);
+        connector.addObserver(modelMaker);
+
+        new Thread(connector).start();
     }
 
     public static void main(String[] args) {

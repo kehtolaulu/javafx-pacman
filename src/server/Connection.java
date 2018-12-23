@@ -17,6 +17,9 @@ public class Connection {
         this.server = server;
         this.socket = socket;
         writer = new PrintWriter(socket.getOutputStream());
+
+        println(String.valueOf(id));
+
         new Thread(this::run).start();
     }
 

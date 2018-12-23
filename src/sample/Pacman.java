@@ -7,7 +7,7 @@ import javafx.scene.input.KeyCode;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class Pacman implements Playable, Observer {
+public class Pacman implements Player, Playable, Observer {
     private static final int STEP = 10;
     private ImageView imageView;
     private static final int WIDTH = 70;
@@ -22,12 +22,20 @@ public class Pacman implements Playable, Observer {
             imageView = new ImageView(img);
             imageView.setFitHeight(WIDTH);
             imageView.setFitWidth(HEIGHT);
-            imageView.setX(0);
-            imageView.setY(0);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.id = 0;
+    }
+
+    public Pacman(double x, double y) {
+        this();
+        move(x, y);
+    }
+
+    public Pacman(int id) {
+        this();
+        this.id = id;
+        move(0, 0);
     }
 
     public ImageView asView() {
@@ -90,4 +98,15 @@ public class Pacman implements Playable, Observer {
     }
 
     public int getId() { return id; }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public void move(double x, double y) {
+        imageView.setX(x);
+        imageView.setY(y);
+    }
 }

@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class Server {
     public static void main(String[] args) {
@@ -12,10 +13,9 @@ public class Server {
         server.run();
     }
 
-
     private final ServerSocket serverSocket;
     private final List<Connection> connections;
-    private int playerCount = 1;
+    private int playerCount = 0;
 
     public Server() {
         try {
@@ -34,7 +34,8 @@ public class Server {
 
     private void run() {
         while (true) {
-            try (Socket accept = serverSocket.accept()) {
+            try {
+                Socket accept = serverSocket.accept();
                 Connection c = new Connection(nextId(), accept, this);
                 this.connect(c);
             } catch (IOException e) {
@@ -45,12 +46,16 @@ public class Server {
     }
 
     private void connect(Connection c) {
-        cast(c, "new:" + c.getId() + ":" + "100:100");
+        Random random = new Random();
+        int x = random.nextInt(400);
+        int y = random.nextInt(400);
+        cast(c, c.getId() + ":new:" + x + ":" + y);
         connections.add(c);
-        c.println("move:" + c.getId() + ":" + "100:100");
+        c.println(c.getId() + ":move:" + x + ":" + y);
     }
 
     void cast(Connection source, String value) {
+        System.out.println(value);
         for (Connection c : connections) {
             if (c != source) c.println(value);
         }

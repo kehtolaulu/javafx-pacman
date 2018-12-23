@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 
-public class Dot implements Observer, Playable {
+public class Dot implements Player, Observer, Playable {
     private static final int STEP = 10;
     private Circle circle;
     public static final int RADIUS = 10;
@@ -19,9 +19,15 @@ public class Dot implements Observer, Playable {
 
     public Dot(double x, double y) {
         this();
-        circle.setCenterX(x);
-        circle.setCenterY(y);
+        move(x, y);
     }
+
+    public Dot(int id) {
+        this();
+        this.id = id;
+        move(0, 0);
+    }
+
 
     public Circle asView() {
         return circle;
@@ -29,23 +35,20 @@ public class Dot implements Observer, Playable {
 
     @Override
     public void onNext(String msg) {
-        if (msg.startsWith(String.valueOf(id) + ":")) {
-            // "1:UP"
-            KeyCode code = KeyCode.valueOf(msg.split(":")[1]);
-            switch (code) {
-                case UP:
-                    moveUp();
-                    break;
-                case DOWN:
-                    moveDown();
-                    break;
-                case LEFT:
-                    moveLeft();
-                    break;
-                case RIGHT:
-                    moveRight();
-                    break;
-            }
+        KeyCode code = KeyCode.valueOf(msg);
+        switch (code) {
+            case UP:
+                moveUp();
+                break;
+            case DOWN:
+                moveDown();
+                break;
+            case LEFT:
+                moveLeft();
+                break;
+            case RIGHT:
+                moveRight();
+                break;
         }
     }
 
@@ -62,10 +65,12 @@ public class Dot implements Observer, Playable {
     private void moveVertically(int step) {
         circle.setCenterY(circle.getCenterY() + step);
     }
+
     @Override
     public void moveLeft() {
         moveHorizontally(-STEP);
     }
+
     @Override
     public void moveRight() {
         moveHorizontally(STEP);
@@ -79,5 +84,13 @@ public class Dot implements Observer, Playable {
         this.id = id;
     }
 
-    public int getId() { return id; }
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void move(double x, double y) {
+        circle.setCenterX(x);
+        circle.setCenterY(y);
+    }
 }
