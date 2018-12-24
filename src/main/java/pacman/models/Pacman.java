@@ -1,8 +1,8 @@
-package models;
+package pacman.models;
 
-import interfaces.Observer;
-import interfaces.Playable;
-import interfaces.Player;
+import pacman.interfaces.Playable;
+import pacman.interfaces.Observer;
+import pacman.interfaces.Player;
 import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

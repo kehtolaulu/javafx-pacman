@@ -1,9 +1,9 @@
-package sample;
+package pacman.sample;
 
-import interfaces.AbstractObservable;
-import interfaces.Observable;
-import interfaces.Observer;
-import interfaces.Player;
+import pacman.interfaces.AbstractObservable;
+import pacman.interfaces.Observable;
+import pacman.interfaces.Observer;
+import pacman.interfaces.Player;
 
 public class ProtocolWrapper extends AbstractObservable implements Observer, Observable {
     private Player p;

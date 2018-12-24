@@ -1,12 +1,12 @@
-package sample;
+package pacman.sample;
 
-import interfaces.Observable;
-import interfaces.Observer;
-import interfaces.Player;
+import pacman.models.Pacman;
+import pacman.interfaces.Observable;
+import pacman.interfaces.Observer;
+import pacman.interfaces.Player;
 import javafx.application.Platform;
 import javafx.scene.layout.AnchorPane;
-import models.Dot;
-import models.Pacman;
+import pacman.models.Dot;
 
 public class ModelMaker implements Observer {
     private AnchorPane anchorPane;

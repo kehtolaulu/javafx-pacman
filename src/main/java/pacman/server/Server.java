@@ -1,4 +1,4 @@
-package server;
+package pacman.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;

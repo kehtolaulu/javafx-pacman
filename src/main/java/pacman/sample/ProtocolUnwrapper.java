@@ -1,7 +1,7 @@
-package sample;
+package pacman.sample;
 
-import interfaces.Observer;
-import interfaces.Player;
+import pacman.interfaces.Observer;
+import pacman.interfaces.Player;
 
 public class ProtocolUnwrapper implements Observer {
     private Player player;

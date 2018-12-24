@@ -1,4 +1,4 @@
-package interfaces;
+package pacman.interfaces;
 
 public interface Observable {
     void addObserver(Observer o);

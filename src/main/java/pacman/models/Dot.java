@@ -1,8 +1,8 @@
-package models;
+package pacman.models;
 
-import interfaces.Observer;
-import interfaces.Playable;
-import interfaces.Player;
+import pacman.interfaces.Observer;
+import pacman.interfaces.Playable;
+import pacman.interfaces.Player;
 import javafx.geometry.Bounds;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;

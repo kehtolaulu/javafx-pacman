@@ -1,4 +1,4 @@
-package interfaces;
+package pacman.interfaces;
 
 import javafx.geometry.Bounds;
 import javafx.scene.Node;

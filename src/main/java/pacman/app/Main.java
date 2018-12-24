@@ -1,13 +1,14 @@
-package app;
+package pacman.app;
 
-import interfaces.Player;
+import pacman.interfaces.Player;
+import pacman.models.Pacman;
+import pacman.sample.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import models.Pacman;
-import sample.*;
+import pacman.sample.sample.*;
 
 import java.io.IOException;
 

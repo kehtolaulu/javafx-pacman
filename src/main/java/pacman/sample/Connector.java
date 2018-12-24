@@ -1,7 +1,7 @@
-package sample;
+package pacman.sample;
 
-import interfaces.Observable;
-import interfaces.Observer;
+import pacman.interfaces.Observable;
+import pacman.interfaces.Observer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
