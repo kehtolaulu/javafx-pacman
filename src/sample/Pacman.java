@@ -109,4 +109,12 @@ public class Pacman implements Player, Playable, Observer {
         imageView.setX(x);
         imageView.setY(y);
     }
+    @Override
+    public double getX() {
+        return imageView.getX();
+    }
+    @Override
+    public double getY() {
+        return imageView.getY();
+    }
 }

@@ -28,7 +28,6 @@ public class Dot implements Player, Observer, Playable {
         move(0, 0);
     }
 
-
     public Circle asView() {
         return circle;
     }
@@ -92,5 +91,14 @@ public class Dot implements Player, Observer, Playable {
     public void move(double x, double y) {
         circle.setCenterX(x);
         circle.setCenterY(y);
+    }
+
+    @Override
+    public double getX() {
+        return circle.getCenterX();
+    }
+    @Override
+    public double getY() {
+        return circle.getCenterY();
     }
 }

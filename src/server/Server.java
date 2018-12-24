@@ -49,7 +49,15 @@ public class Server {
         Random random = new Random();
         int x = random.nextInt(400);
         int y = random.nextInt(400);
+        c.setX(x);
+        c.setY(y);
         cast(c, c.getId() + ":new:" + x + ":" + y);
+        connections.forEach(
+                connection -> {
+                    System.out.println(connection.getState());
+                    c.println(connection.getState());
+                }
+        );
         connections.add(c);
         c.println(c.getId() + ":move:" + x + ":" + y);
     }
