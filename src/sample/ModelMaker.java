@@ -1,7 +1,12 @@
 package sample;
 
+import interfaces.Observable;
+import interfaces.Observer;
+import interfaces.Player;
 import javafx.application.Platform;
 import javafx.scene.layout.AnchorPane;
+import models.Dot;
+import models.Pacman;
 
 public class ModelMaker implements Observer {
     private AnchorPane anchorPane;
@@ -32,6 +37,7 @@ public class ModelMaker implements Observer {
             }
 
             player.setId(Integer.parseInt(args[0]));
+            player.setBounds(anchorPane.getBoundsInParent());
             Platform.runLater(() -> anchorPane.getChildren().add(player.asView())
             );
             this.observable.addObserver(new ProtocolUnwrapper(player));
@@ -53,6 +59,7 @@ public class ModelMaker implements Observer {
                 );
             }
             player.setId(Integer.parseInt(args[1]));
+            player.setBounds(anchorPane.getBoundsInParent());
             Platform.runLater(() -> anchorPane.getChildren().add(player.asView())
             );
             this.observable.addObserver(new ProtocolUnwrapper(player));

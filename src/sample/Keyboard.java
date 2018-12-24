@@ -1,5 +1,7 @@
 package sample;
 
+import interfaces.Observable;
+import interfaces.Observer;
 import javafx.scene.Scene;
 
 import java.util.LinkedList;

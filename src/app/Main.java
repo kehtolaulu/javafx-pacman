@@ -1,10 +1,12 @@
 package app;
 
+import interfaces.Player;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import models.Pacman;
 import sample.*;
 
 import java.io.IOException;

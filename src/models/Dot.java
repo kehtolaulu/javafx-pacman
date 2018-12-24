@@ -1,5 +1,9 @@
-package sample;
+package models;
 
+import interfaces.Observer;
+import interfaces.Playable;
+import interfaces.Player;
+import javafx.geometry.Bounds;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -9,13 +13,13 @@ public class Dot implements Player, Observer, Playable {
     private static final int STEP = 10;
     private Circle circle;
     public static final int RADIUS = 10;
-    private static final Color color = Color.WHITE;
+    private static final Color COLOR = Color.WHITE;
     private int id;
+    private Bounds bounds;
 
     public Dot() {
-        this.circle = new Circle(RADIUS, color);
+        this.circle = new Circle(RADIUS, COLOR);
     }
-
 
     public Dot(double x, double y) {
         this();
@@ -53,6 +57,7 @@ public class Dot implements Player, Observer, Playable {
 
     @Override
     public void moveUp() {
+
         moveVertically(-STEP);
     }
 
@@ -97,8 +102,14 @@ public class Dot implements Player, Observer, Playable {
     public double getX() {
         return circle.getCenterX();
     }
+
     @Override
     public double getY() {
         return circle.getCenterY();
+    }
+
+    @Override
+    public void setBounds(Bounds boundsInLocal) {
+        this.bounds = boundsInLocal;
     }
 }

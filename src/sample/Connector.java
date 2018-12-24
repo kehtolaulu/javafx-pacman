@@ -1,5 +1,8 @@
 package sample;
 
+import interfaces.Observable;
+import interfaces.Observer;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

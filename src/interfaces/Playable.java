@@ -1,4 +1,4 @@
-package sample;
+package interfaces;
 
 public interface Playable {
     void moveUp();

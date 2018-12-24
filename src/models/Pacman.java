@@ -1,5 +1,9 @@
-package sample;
+package models;
 
+import interfaces.Observer;
+import interfaces.Playable;
+import interfaces.Player;
+import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -14,6 +18,7 @@ public class Pacman implements Player, Playable, Observer {
     private static final int HEIGHT = 70;
     private int dir;
     private int id;
+    private Bounds bounds;
 
     public Pacman() {
         this.dir = 1;
@@ -116,5 +121,10 @@ public class Pacman implements Player, Playable, Observer {
     @Override
     public double getY() {
         return imageView.getY();
+    }
+
+    @Override
+    public void setBounds(Bounds boundsInLocal) {
+        this.bounds = boundsInLocal;
     }
 }

@@ -48,25 +48,9 @@ public class Connection {
             while (s != null) {
                 if (s.startsWith(String.valueOf(this.id + ":"))) {
                     String cmd = s.substring(s.indexOf(":") + 1);
-
                     //1:right
-
-                    switch (cmd) {
-                        case "RIGHT":
-                            this.x += 10;
-                            break;
-                        case "LEFT":
-                            this.x -= 10;
-                            break;
-                        case "UP":
-                            this.y -= 10;
-                            break;
-                        case "DOWN":
-                            this.y += 10;
-                            break;
-                    }
+                    updateState(cmd);
                 }
-
                 server.cast(this, s);
                 if (s.startsWith("state")) {
                     println(s);
@@ -77,6 +61,23 @@ public class Connection {
             e.printStackTrace();
         }
         server.destroy(this);
+    }
+
+    private void updateState(String cmd) {
+        switch (cmd) {
+            case "RIGHT":
+                this.x += 10;
+                break;
+            case "LEFT":
+                this.x -= 10;
+                break;
+            case "UP":
+                this.y -= 10;
+                break;
+            case "DOWN":
+                this.y += 10;
+                break;
+        }
     }
 
     int getId() {

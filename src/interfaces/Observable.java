@@ -1,4 +1,4 @@
-package sample;
+package interfaces;
 
 public interface Observable {
     void addObserver(Observer o);

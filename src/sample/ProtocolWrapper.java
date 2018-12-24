@@ -1,5 +1,10 @@
 package sample;
 
+import interfaces.AbstractObservable;
+import interfaces.Observable;
+import interfaces.Observer;
+import interfaces.Player;
+
 public class ProtocolWrapper extends AbstractObservable implements Observer, Observable {
     private Player p;
 

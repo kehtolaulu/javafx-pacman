@@ -1,5 +1,8 @@
 package sample;
 
+import interfaces.Observer;
+import interfaces.Player;
+
 public class ProtocolUnwrapper implements Observer {
     private Player player;
 
