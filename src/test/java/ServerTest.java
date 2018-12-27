@@ -16,7 +16,7 @@ public class ServerTest {
     private static boolean idk = true;
 
     @BeforeAll
-    static void setUpObstacles() throws IOException {
+    static void init() throws IOException {
         server = new Server();
         socket = new Socket("localhost", 4567);
         connection1 = new Connection (1, socket, server) {

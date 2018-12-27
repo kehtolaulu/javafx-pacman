@@ -1,3 +1,4 @@
+import javafx.geometry.Bounds;
 import javafx.scene.layout.AnchorPane;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -7,24 +8,24 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class MovementTest {
+class BoundsTest {
+
     private static Dot dot;
-    private static AnchorPane root;
+    private static Bounds bounds;
 
     @BeforeAll
     static void init() throws IOException {
-        root = new AnchorPane();
         dot = new Dot();
-        root.getChildren().add(dot.asView());
+        AnchorPane root = new AnchorPane();
         dot.setRoot(root);
-        dot.move(300, 300);
+        bounds = root.getLayoutBounds();
     }
 
     @Test
-    void dotShouldMove() {
-        double oldX = dot.getX();
-        dot.onNext("LEFT");
-        assertTrue(oldX > dot.getX());
+    void dotsShouldStayInBounds() {
+        for (int i = (int) bounds.getMinY() - 100; i < bounds.getMaxY(); i++) {
+            dot.onNext("UP");
+            assertTrue(bounds.contains(dot.getX(), dot.getY()));
+        }
     }
-
 }
