@@ -1,14 +1,12 @@
 package pacman.app;
 
-import pacman.sample.*;
-import pacman.interfaces.Player;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import pacman.models.Dot;
-import pacman.sample.sample.*;
+import pacman.sample.*;
 
 import java.io.IOException;
 
@@ -26,7 +24,8 @@ public class Client extends Application {
 
         Connector connector = new Connector("localhost");
 
-        Player p = new Dot(connector.getId());
+        Dot p = new Dot(connector.getId());
+        p.setRoot(root);
 
         root.getChildren().add(p.asView());
 

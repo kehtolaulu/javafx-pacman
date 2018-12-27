@@ -1,23 +1,21 @@
 package pacman.models;
 
-import pacman.interfaces.Observer;
-import pacman.interfaces.Playable;
-import pacman.interfaces.Player;
 import javafx.geometry.Bounds;
 import javafx.scene.input.KeyCode;
+import pacman.interfaces.Observer;
+import pacman.interfaces.Movable;
+import pacman.interfaces.Player;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 
-public class Dot implements Player, Observer, Playable {
-    private static final int STEP = 10;
+public class Dot extends Model implements Player, Observer, Movable {
     private Circle circle;
     public static final int RADIUS = 10;
     private static final Color COLOR = Color.WHITE;
-    private int id;
-    private Bounds bounds;
 
     public Dot() {
+        super();
         this.circle = new Circle(RADIUS, COLOR);
     }
 
@@ -28,68 +26,23 @@ public class Dot implements Player, Observer, Playable {
 
     public Dot(int id) {
         this();
-        this.id = id;
-        move(0, 0);
+        setId(id);
     }
+
 
     public Circle asView() {
         return circle;
     }
 
-    @Override
-    public void onNext(String msg) {
-        KeyCode code = KeyCode.valueOf(msg);
-        switch (code) {
-            case UP:
-                moveUp();
-                break;
-            case DOWN:
-                moveDown();
-                break;
-            case LEFT:
-                moveLeft();
-                break;
-            case RIGHT:
-                moveRight();
-                break;
-        }
-    }
 
     @Override
-    public void moveUp() {
-
-        moveVertically(-STEP);
-    }
-
-    @Override
-    public void moveDown() {
-        moveVertically(STEP);
-    }
-
-    private void moveVertically(int step) {
+    public void moveVertically(double step) {
         circle.setCenterY(circle.getCenterY() + step);
     }
 
     @Override
-    public void moveLeft() {
-        moveHorizontally(-STEP);
-    }
-
-    @Override
-    public void moveRight() {
-        moveHorizontally(STEP);
-    }
-
-    private void moveHorizontally(int step) {
+    public void moveHorizontally(double step) {
         circle.setCenterX(circle.getCenterX() + step);
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
     }
 
     @Override
@@ -109,7 +62,31 @@ public class Dot implements Player, Observer, Playable {
     }
 
     @Override
-    public void setBounds(Bounds boundsInLocal) {
-        this.bounds = boundsInLocal;
+    public void onNext(String msg) {
+        KeyCode code = KeyCode.valueOf(msg);
+        Bounds bounds = root.getBoundsInLocal();
+
+        switch (code) {
+            case UP:
+                if (getY() > bounds.getMinY() + 20) {
+                    moveUp();
+                }
+                break;
+            case DOWN:
+                if (getY() < bounds.getMaxY() - 20) {
+                    moveDown();
+                }
+                break;
+            case RIGHT:
+                if (getX() < bounds.getMaxX() - 20) {
+                    moveRight();
+                }
+                break;
+            case LEFT:
+                if (getX() > bounds.getMinX() + 20) {
+                    moveLeft();
+                }
+                break;
+        }
     }
 }

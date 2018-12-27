@@ -1,12 +1,12 @@
 package pacman.sample;
 
-import pacman.models.Pacman;
-import pacman.interfaces.Observable;
-import pacman.interfaces.Observer;
-import pacman.interfaces.Player;
 import javafx.application.Platform;
 import javafx.scene.layout.AnchorPane;
+import pacman.interfaces.Observable;
+import pacman.interfaces.Observer;
 import pacman.models.Dot;
+import pacman.models.Model;
+import pacman.models.Pacman;
 
 public class ModelMaker implements Observer {
     private AnchorPane anchorPane;
@@ -22,7 +22,7 @@ public class ModelMaker implements Observer {
         if (isNew(msg)) {
             // 1:new:100:10[:pacman]
             String[] args = msg.split(":");
-            Player player;
+            Model player;
 
             if (Integer.parseInt(args[0]) == 1) {
                 player = new Pacman(
@@ -37,15 +37,18 @@ public class ModelMaker implements Observer {
             }
 
             player.setId(Integer.parseInt(args[0]));
-            player.setBounds(anchorPane.getBoundsInParent());
-            Platform.runLater(() -> anchorPane.getChildren().add(player.asView())
+            player.setRoot(anchorPane);
+            Platform.runLater(() -> anchorPane.getChildren().add(player.asView()));
+            this.observable.addObserver(
+                    new ProtocolUnwrapper(
+                            player
+                    )
             );
-            this.observable.addObserver(new ProtocolUnwrapper(player));
         } else if (isState(msg)) {
             //state:1:100:100
             //0     1  2  3
             String[] args = msg.split(":");
-            Player player;
+            Model player;
 
             if (Integer.parseInt(args[1]) == 1) {
                 player = new Pacman(
@@ -59,10 +62,12 @@ public class ModelMaker implements Observer {
                 );
             }
             player.setId(Integer.parseInt(args[1]));
-            player.setBounds(anchorPane.getBoundsInParent());
+            player.setRoot(anchorPane);
             Platform.runLater(() -> anchorPane.getChildren().add(player.asView())
             );
-            this.observable.addObserver(new ProtocolUnwrapper(player));
+            this.observable.addObserver(
+                    new ProtocolUnwrapper(player)
+            );
 
         }
     }

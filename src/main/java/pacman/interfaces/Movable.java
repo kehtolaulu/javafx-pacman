@@ -1,10 +1,9 @@
 package pacman.interfaces;
 
-public interface Playable {
+public interface Movable {
     void moveUp();
     void moveDown();
     void moveLeft();
     void moveRight();
-    int getId();
-    void setId(int id);
+    void move(double x, double y);
 }

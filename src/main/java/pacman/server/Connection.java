@@ -31,7 +31,7 @@ public class Connection {
     private double x;
     private double y;
 
-    Connection(int id, Socket socket, Server server) throws IOException {
+    public Connection(int id, Socket socket, Server server) throws IOException {
         this.id = id;
         this.server = server;
         this.socket = socket;

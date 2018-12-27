@@ -1,13 +1,11 @@
 package pacman.interfaces;
 
-import javafx.geometry.Bounds;
 import javafx.scene.Node;
 
-public interface Player extends Observer, Playable {
-    void move(double x, double y);
+public interface Player extends Observer, Movable {
     Node asView();
     double getX();
     double getY();
-
-    void setBounds(Bounds boundsInLocal);
+    int getId();
+    void setId(int id);
 }

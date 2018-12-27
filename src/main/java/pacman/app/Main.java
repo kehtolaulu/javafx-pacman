@@ -1,14 +1,12 @@
 package pacman.app;
 
-import pacman.interfaces.Player;
-import pacman.models.Pacman;
-import pacman.sample.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import pacman.sample.sample.*;
+import pacman.models.Pacman;
+import pacman.sample.*;
 
 import java.io.IOException;
 
@@ -26,7 +24,8 @@ public class Main extends Application {
 
         Connector connector = new Connector("localhost");
 
-        Player pacman = new Pacman(connector.getId());
+        Pacman pacman = new Pacman(connector.getId());
+        pacman.setRoot(root);
         root.getChildren().add(pacman.asView());
 
         Keyboard keyboard = new Keyboard(scene);

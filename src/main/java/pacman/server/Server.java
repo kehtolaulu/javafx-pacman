@@ -45,7 +45,7 @@ public class Server {
         }
     }
 
-    private void connect(Connection c) {
+    public void connect(Connection c) {
         Random random = new Random();
         int x = random.nextInt(400);
         int y = random.nextInt(400);
