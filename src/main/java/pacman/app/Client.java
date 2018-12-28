@@ -22,7 +22,7 @@ public class Client extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
 
-        Connector connector = new Connector("localhost");
+        Connector connector = new Connector(getParameters().getRaw().get(0));
 
         Dot p = new Dot(connector.getId());
         p.setRoot(root);

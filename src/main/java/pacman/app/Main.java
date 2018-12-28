@@ -22,7 +22,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
 
-        Connector connector = new Connector("localhost");
+        Connector connector = new Connector(getParameters().getRaw().get(0));
 
         Pacman pacman = new Pacman(connector.getId());
         pacman.setRoot(root);

@@ -18,6 +18,7 @@ public class Pacman extends Model implements Player, Movable, Observer {
     private static final int WIDTH = 70;
     private static final int HEIGHT = 70;
     private int dir;
+    public static final int STEP = 20;
 
     public Pacman() {
         super();
